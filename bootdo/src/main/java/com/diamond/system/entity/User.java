@@ -20,6 +20,7 @@ public class User implements Serializable {
     private String password;
     // 部门
     private Long deptId;
+
     private String deptName;
     // 邮箱
     private String email;
@@ -30,9 +31,9 @@ public class User implements Serializable {
     // 创建用户id
     private Long userIdCreate;
     // 创建时间
-    private Date gmtCreate;
+    private Date createDate;
     // 修改时间
-    private Date gmtModified;
+    private Date updateDate;
     //角色
     private List<Long> roleIds;
     //性别
@@ -40,17 +41,5 @@ public class User implements Serializable {
     //出身日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
-    //图片ID
-    private Long picId;
-    //现居住地
-    private String liveAddress;
-    //爱好
-    private String hobby;
-    //省份
-    private String province;
-    //所在城市
-    private String city;
-    //所在地区
-    private String district;
 
 }

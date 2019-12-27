@@ -123,19 +123,6 @@ public class DictServiceImpl implements DictService {
         param.put("type", "hobby");
         List<Dict> hobbyList = dictDao.list(param);
 
-        if (StringUtils.isNotEmpty(user.getHobby())) {
-            String userHobbys[] = user.getHobby().split(";");
-            for (String userHobby : userHobbys) {
-                for (Dict hobby : hobbyList) {
-                    if (!Objects.equals(userHobby, hobby.getId().toString())) {
-                        continue;
-                    }
-                    hobby.setRemarks("true");
-                    break;
-                }
-            }
-        }
-
         return hobbyList;
     }
 

@@ -3,13 +3,19 @@
 
 <mapper namespace="com.diamond.system.dao.UserDao">
 
+    <sql id="Base_Column">
+        `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`create_date`,`update_date`,`sex`,`birth`
+    </sql>
+
     <select id="get" resultType="com.diamond.system.entity.User">
-		select `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district` from sys_user where user_id = #{value}
+		select
+		<include refid="Base_Column" />
+		from sys_user where user_id = #{value}
 	</select>
 
     <select id="list" resultType="com.diamond.system.entity.User">
         select
-        `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`
+        <include refid="Base_Column" />
         from sys_user
         <where>
             <if test="userId != null and userId != ''">and user_id = #{userId}</if>
@@ -78,24 +84,7 @@
     <insert id="save" parameterType="com.diamond.system.entity.User" useGeneratedKeys="true" keyProperty="userId">
 		insert into sys_user
 		(
-			`username`, 
-			`name`, 
-			`password`, 
-			`dept_id`, 
-			`email`, 
-			`mobile`, 
-			`status`, 
-			`user_id_create`, 
-			`gmt_create`, 
-			`gmt_modified`, 
-			`sex`, 
-			`birth`, 
-			`pic_id`, 
-			`live_address`, 
-			`hobby`, 
-			`province`, 
-			`city`, 
-			`district`
+        <include refid="Base_Column" />
 		)
 		values
 		(
@@ -159,4 +148,5 @@
     <select id="listAllDept" resultType="long">
 				select DISTINCT dept_id from sys_user
 	</select>
+
 </mapper>
