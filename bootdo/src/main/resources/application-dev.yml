@@ -1,4 +1,4 @@
-bootdo:
+diamond:
   uploadPath: c:/var/uploaded_files/
   username: admin
   password: 111111
@@ -10,9 +10,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/bootdo?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://10.101.12.4:3306/ciimc_jingansi?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
     username: root
-    password: root
+    password: 1q2w3e4r
     initialSize: 1
     minIdle: 3
     maxActive: 20
@@ -35,19 +35,3 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     #useGlobalDataSourceStat: true
-  redis:
-    host: localhost
-    port: 6379
-    password:
-    # 连接超时时间（毫秒）
-    timeout: 10000
-    jedis:
-      pool:
-        # 连接池中的最大空闲连接
-        max-idle: 8
-        # 连接池中的最小空闲连接
-        min-idle: 10
-        # 连接池最大连接数（使用负值表示没有限制）
-        max-active: 100
-        # 连接池最大阻塞等待时间（使用负值表示没有限制）
-        max-wait: -1

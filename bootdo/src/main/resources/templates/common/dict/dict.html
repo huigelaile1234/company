@@ -1,66 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
-	<div class="wrapper wrapper-content ">
-		<div class="col-sm-12">
-			<div class="ibox">
-				<div class="ibox-body">
-					<div class="fixed-table-toolbar">
-						<div class="columns pull-left">
-							<button shiro:hasPermission="common:dict:add" type="button"
-								class="btn  btn-primary" onclick="add()">
-								<i class="fa fa-plus" aria-hidden="true"></i>添加
-							</button>
-							<button shiro:hasPermission="common:dict:batchRemove"
-								type="button" class="btn  btn-danger" onclick="batchRemove()">
-								<i class="fa fa-trash" aria-hidden="true"></i>删除
-							</button>
-						</div>
-						<div class="columns pull-right">
-							<button class="btn btn-success" onclick="reLoad()">查询</button>
-						</div>
-						<div class="columns pull-right col-md-2 nopadding">
-							<select data-placeholder="选择类别" class="form-control chosen-select"
-								tabindex="2" style="width: 100%">
-								<option value="">选择类别</option>
-							</select>
-						</div>
-					</div>
-					<table id="exampleTable" data-mobile-responsive="true">
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
-	<div>
-		<script type="text/javascript">
-			var s_edit_h = 'hidden';
-			var s_remove_h = 'hidden';
-			var s_resetPwd_h = 'hidden';
-		</script>
-	</div>
-	<div shiro:hasPermission="common:dict:edit">
-		<script type="text/javascript">
-			s_edit_h = '';
-		</script>
-	</div>
-	<div shiro:hasPermission="common:dict:remove">
-		<script type="text/javascript">
-			var s_remove_h = '';
-		</script>
-	</div>
-	<div shiro:hasPermission="common:dict:add">
-		<script type="text/javascript">
-			var s_add_h = '';
-		</script>
-	</div>
+<div class="wrapper wrapper-content ">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-body">
+                <div class="fixed-table-toolbar">
+                    <div class="columns pull-left">
+                        <button shiro:hasPermission="common:dict:add" type="button"
+                                class="btn  btn-primary" onclick="add()">
+                            <i class="fa fa-plus" aria-hidden="true"></i>添加
+                        </button>
+                        <button shiro:hasPermission="common:dict:batchRemove"
+                                type="button" class="btn  btn-danger" onclick="batchRemove()">
+                            <i class="fa fa-trash" aria-hidden="true"></i>删除
+                        </button>
+                        <button shiro:hasPermission="common:dict:import"
+                                type="button" class="btn btn-info" onclick="importExcel()">
+                            <i class="fa fa-upload" aria-hidden="true"></i>导入
+                        </button>
+                        <button shiro:hasPermission="common:dict:export"
+                                type="button" class="btn btn-warning" onclick="exportExcel()">
+                            <i class="fa fa-download" aria-hidden="true"></i>导出
+                        </button>
+                    </div>
+                    <div class="columns pull-right">
+                        <button class="btn btn-success" onclick="reLoad()">查询</button>
+                    </div>
+                    <div class="columns pull-right col-md-2 nopadding">
+                        <select data-placeholder="选择类别" class="form-control chosen-select"
+                                tabindex="2" style="width: 100%">
+                            <option value="">选择类别</option>
+                        </select>
+                    </div>
+                </div>
+                <table id="exampleTable" data-mobile-responsive="true">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+<div>
+    <script type="text/javascript">
+        var s_edit_h = 'hidden';
+        var s_remove_h = 'hidden';
+        var s_resetPwd_h = 'hidden';
+    </script>
+</div>
+<div shiro:hasPermission="common:dict:edit">
+    <script type="text/javascript">
+        s_edit_h = '';
+    </script>
+</div>
+<div shiro:hasPermission="common:dict:remove">
+    <script type="text/javascript">
+        var s_remove_h = '';
+    </script>
+</div>
+<div shiro:hasPermission="common:dict:add">
+    <script type="text/javascript">
+        var s_add_h = '';
+    </script>
+</div>
+<!-- 导入区域 -->
+<script id="importTpl" type="text/template">
+    <form enctype="multipart/form-data" style="margin-top: 20px;margin-bottom: 10px;">
+        <div class="col-xs-offset-1">
+            <input type="file" id="file" name="file"/>
+            <div style="margin-top: 10px; padding-top: 5px;">
+                <input type="checkbox" id="updateSupport" name="updateSupport" title="如果登录账户已经存在，更新这条数据。"> 是否更新已经存在的用户数据
+                &nbsp; <a onclick="$.table.importTemplate()" class="btn btn-default btn-xs"><i
+                    class="fa fa-file-excel-o"></i> 下载模板</a>
+            </div>
+            <font color="red" style="margin-top: 10px; float: left!important;">
+                提示：仅允许导入“xls”或“xlsx”格式文件！
+            </font>
+        </div>
+    </form>
+</script>
 
-	</div>
-	<div th:include="include :: footer"></div>
-	<script type="text/javascript"
-		src="/js/appjs/common/dict/dict.js"></script>
+<div th:include="include :: footer"></div>
+<script type="text/javascript"
+        src="/js/appjs/common/dict/dict.js"></script>
 </body>
 </html>

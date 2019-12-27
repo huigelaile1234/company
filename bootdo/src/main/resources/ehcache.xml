@@ -2,10 +2,18 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
          updateCheck="false">
-    <diskStore path="java.io.tmpdir/Tmp_EhCache"/>
+    <!--diskStore path：用来配置磁盘缓存使用的物理路径-->
+    <diskStore path="usr/a/"/>
+    <!--Eternal：缓存中对象是否永久有效,即是否永驻内存,true时将忽略timeToIdleSeconds和timeToLiveSeconds-->
+
     <defaultCache eternal="false" maxElementsInMemory="1000"
                   overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
                   timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU"/>
+
+    <!--name缓存名称，eternal是否永驻内存，maxElementsInMemory内存缓存中最多可以存放的元素，
+     overflowToDisk内存不足时是否缓存到磁盘，diskPersistent是否持久化磁盘缓存，
+     timeToIdleSeconds失效前允许闲置时间，单位秒，timeToLiveSeconds失效前允许存在时间，单位秒
+     memoryStoreEvictionPolicy达到 maxElementsInMemory后的清理策略-->
     <cache name="user" eternal="false" maxElementsInMemory="10000"
            overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
            timeToLiveSeconds="0" memoryStoreEvictionPolicy="LFU"/>

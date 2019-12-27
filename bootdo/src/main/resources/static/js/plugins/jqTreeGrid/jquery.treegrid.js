@@ -5,18 +5,18 @@
  * Copyright 2013, Pomazan Max
  * Licensed under the MIT licenses.
  */
-(function($) {
+(function ($) {
 
     var methods = {
         /**
          * Initialize tree
-         * 
+         *
          * @param {Object} options
          * @returns {Object[]}
          */
-        initTree: function(options) {
+        initTree: function (options) {
             var settings = $.extend({}, this.treegrid.defaults, options);
-            return this.each(function() {
+            return this.each(function () {
                 var $this = $(this);
                 $this.treegrid('setTreeContainer', $(this));
                 $this.treegrid('setSettings', settings);
@@ -25,12 +25,12 @@
         },
         /**
          * Initialize node
-         * 
+         *
          * @param {Object} settings
          * @returns {Object[]}
          */
-        initNode: function(settings) {
-            return this.each(function() {
+        initNode: function (settings) {
+            return this.each(function () {
                 var $this = $(this);
                 $this.treegrid('setTreeContainer', settings.getTreeGridContainer.apply(this));
                 $this.treegrid('getChildNodes').treegrid('initNode', settings);
@@ -39,13 +39,13 @@
         },
         /**
          * Initialize node events
-         * 
+         *
          * @returns {Node}
          */
-        initEvents: function() {
+        initEvents: function () {
             var $this = $(this);
             //Save state on change
-            $this.on("change", function() {
+            $this.on("change", function () {
                 var $this = $(this);
                 $this.treegrid('render');
                 if ($this.treegrid('getSetting', 'saveState')) {
@@ -53,13 +53,13 @@
                 }
             });
             //Default behavior on collapse
-            $this.on("collapse", function() {
+            $this.on("collapse", function () {
                 var $this = $(this);
                 $this.removeClass('treegrid-expanded');
                 $this.addClass('treegrid-collapsed');
             });
             //Default behavior on expand
-            $this.on("expand", function() {
+            $this.on("expand", function () {
                 var $this = $(this);
                 $this.removeClass('treegrid-collapsed');
                 $this.addClass('treegrid-expanded');
@@ -69,27 +69,27 @@
         },
         /**
          * Initialize events from settings
-         * 
+         *
          * @returns {Node}
          */
-        initSettingsEvents: function() {
+        initSettingsEvents: function () {
             var $this = $(this);
             //Save state on change
-            $this.on("change", function() {
+            $this.on("change", function () {
                 var $this = $(this);
                 if (typeof ($this.treegrid('getSetting', 'onChange')) === "function") {
                     $this.treegrid('getSetting', 'onChange').apply($this);
                 }
             });
             //Default behavior on collapse
-            $this.on("collapse", function() {
+            $this.on("collapse", function () {
                 var $this = $(this);
                 if (typeof ($this.treegrid('getSetting', 'onCollapse')) === "function") {
                     $this.treegrid('getSetting', 'onCollapse').apply($this);
                 }
             });
             //Default behavior on expand
-            $this.on("expand", function() {
+            $this.on("expand", function () {
                 var $this = $(this);
                 if (typeof ($this.treegrid('getSetting', 'onExpand')) === "function") {
                     $this.treegrid('getSetting', 'onExpand').apply($this);
@@ -101,10 +101,10 @@
         },
         /**
          * Initialize expander for node
-         * 
+         *
          * @returns {Node}
          */
-        initExpander: function() {
+        initExpander: function () {
             var $this = $(this);
             var cell = $this.find('td').get($this.treegrid('getSetting', 'treeColumn'));
             var tpl = $this.treegrid('getSetting', 'expanderTemplate');
@@ -112,17 +112,17 @@
             if (expander) {
                 expander.remove();
             }
-            $(tpl).prependTo(cell).click(function() {
+            $(tpl).prependTo(cell).click(function () {
                 $($(this).closest('tr')).treegrid('toggle');
             });
             return $this;
         },
         /**
          * Initialize indent for node
-         * 
+         *
          * @returns {Node}
          */
-        initIndent: function() {
+        initIndent: function () {
             var $this = $(this);
             $this.find('.treegrid-indent').remove();
             for (var i = 0; i < $(this).treegrid('getDepth'); i++) {
@@ -132,10 +132,10 @@
         },
         /**
          * Initialise state of node
-         * 
+         *
          * @returns {Node}
          */
-        initState: function() {
+        initState: function () {
             var $this = $(this);
             if ($this.treegrid('getSetting', 'saveState') && !$this.treegrid('isFirstInit')) {
                 $this.treegrid('restoreState');
@@ -150,10 +150,10 @@
         },
         /**
          * Return true if this tree was never been initialised
-         * 
+         *
          * @returns {Boolean}
          */
-        isFirstInit: function() {
+        isFirstInit: function () {
             var tree = $(this).treegrid('getTreeContainer');
             if (tree.data('first_init') === undefined) {
                 tree.data('first_init', $.cookie(tree.treegrid('getSetting', 'saveStateName')) === undefined);
@@ -162,10 +162,10 @@
         },
         /**
          * Save state of current node
-         * 
+         *
          * @returns {Node}
          */
-        saveState: function() {
+        saveState: function () {
             var $this = $(this);
             if ($this.treegrid('getSetting', 'saveStateMethod') === 'cookie') {
 
@@ -188,10 +188,10 @@
         },
         /**
          * Restore state of current node.
-         * 
+         *
          * @returns {Node}
          */
-        restoreState: function() {
+        restoreState: function () {
             var $this = $(this);
             if ($this.treegrid('getSetting', 'saveStateMethod') === 'cookie') {
                 var stateArray = $.cookie($this.treegrid('getSetting', 'saveStateName')).split(',');
@@ -206,11 +206,11 @@
         },
         /**
          * Method return setting by name
-         * 
+         *
          * @param {type} name
          * @returns {unresolved}
          */
-        getSetting: function(name) {
+        getSetting: function (name) {
             if (!$(this).treegrid('getTreeContainer')) {
                 return null;
             }
@@ -218,60 +218,60 @@
         },
         /**
          * Add new settings
-         * 
+         *
          * @param {Object} settings
          */
-        setSettings: function(settings) {
+        setSettings: function (settings) {
             $(this).treegrid('getTreeContainer').data('settings', settings);
         },
         /**
          * Return tree container
-         * 
+         *
          * @returns {HtmlElement}
          */
-        getTreeContainer: function() {
+        getTreeContainer: function () {
             return $(this).data('treegrid');
         },
         /**
          * Set tree container
-         * 
+         *
          * @param {HtmlE;ement} container
          */
-        setTreeContainer: function(container) {
+        setTreeContainer: function (container) {
             return $(this).data('treegrid', container);
         },
         /**
-         * Method return all root nodes of tree. 
-         * 
+         * Method return all root nodes of tree.
+         *
          * Start init all child nodes from it.
-         * 
+         *
          * @returns {Array}
          */
-        getRootNodes: function() {
+        getRootNodes: function () {
             return $(this).treegrid('getSetting', 'getRootNodes').apply(this, [$(this).treegrid('getTreeContainer')]);
         },
         /**
-         * Method return all nodes of tree. 
-         * 
+         * Method return all nodes of tree.
+         *
          * @returns {Array}
          */
-        getAllNodes: function() {
+        getAllNodes: function () {
             return $(this).treegrid('getSetting', 'getAllNodes').apply(this, [$(this).treegrid('getTreeContainer')]);
         },
         /**
          * Mthod return true if element is Node
-         * 
+         *
          * @returns {String}
          */
-        isNode: function() {
+        isNode: function () {
             return $(this).treegrid('getNodeId') !== null;
         },
         /**
          * Mthod return id of node
-         * 
+         *
          * @returns {String}
          */
-        getNodeId: function() {
+        getNodeId: function () {
             if ($(this).treegrid('getSetting', 'getNodeId') === null) {
                 return null;
             } else {
@@ -280,18 +280,18 @@
         },
         /**
          * Method return parent id of node or null if root node
-         * 
+         *
          * @returns {String}
          */
-        getParentNodeId: function() {
+        getParentNodeId: function () {
             return $(this).treegrid('getSetting', 'getParentNodeId').apply(this);
         },
         /**
          * Method return parent node or null if root node
-         * 
+         *
          * @returns {Object[]}
          */
-        getParentNode: function() {
+        getParentNode: function () {
             if ($(this).treegrid('getParentNodeId') === null) {
                 return null;
             } else {
@@ -300,20 +300,20 @@
         },
         /**
          * Method return array of child nodes or null if node is leaf
-         * 
+         *
          * @returns {Object[]}
          */
-        getChildNodes: function() {
+        getChildNodes: function () {
             return $(this).treegrid('getSetting', 'getChildNodes').apply(this, [$(this).treegrid('getNodeId'), $(this).treegrid('getTreeContainer')]);
         },
         /**
          * Method return depth of tree.
-         * 
+         *
          * This method is needs for calculate indent
-         * 
+         *
          * @returns {Number}
          */
-        getDepth: function() {
+        getDepth: function () {
             if ($(this).treegrid('getParentNode') === null) {
                 return 0;
             }
@@ -321,26 +321,26 @@
         },
         /**
          * Method return true if node is root
-         * 
+         *
          * @returns {Boolean}
          */
-        isRoot: function() {
+        isRoot: function () {
             return $(this).treegrid('getDepth') === 0;
         },
         /**
          * Method return true if node has no child nodes
-         * 
+         *
          * @returns {Boolean}
          */
-        isLeaf: function() {
+        isLeaf: function () {
             return $(this).treegrid('getChildNodes').length === 0;
         },
         /**
          * Method return true if node last in branch
-         * 
+         *
          * @returns {Boolean}
          */
-        isLast: function() {
+        isLast: function () {
             if ($(this).treegrid('isNode')) {
                 var parentNode = $(this).treegrid('getParentNode');
                 if (parentNode === null) {
@@ -357,10 +357,10 @@
         },
         /**
          * Method return true if node first in branch
-         * 
+         *
          * @returns {Boolean}
          */
-        isFirst: function() {
+        isFirst: function () {
             if ($(this).treegrid('isNode')) {
                 var parentNode = $(this).treegrid('getParentNode');
                 if (parentNode === null) {
@@ -377,26 +377,26 @@
         },
         /**
          * Return true if node expanded
-         * 
+         *
          * @returns {Boolean}
          */
-        isExpanded: function() {
+        isExpanded: function () {
             return $(this).hasClass('treegrid-expanded');
         },
         /**
          * Return true if node collapsed
-         * 
+         *
          * @returns {Boolean}
          */
-        isCollapsed: function() {
+        isCollapsed: function () {
             return $(this).hasClass('treegrid-collapsed');
         },
         /**
          * Return true if at least one of parent node is collapsed
-         * 
+         *
          * @returns {Boolean}
          */
-        isOneOfParentsCollapsed: function() {
+        isOneOfParentsCollapsed: function () {
             var $this = $(this);
             if ($this.treegrid('isRoot')) {
                 return false;
@@ -410,11 +410,11 @@
         },
         /**
          * Expand node
-         * 
+         *
          * @returns {Node}
          */
-        expand: function() {
-            return $(this).each(function() {
+        expand: function () {
+            return $(this).each(function () {
                 var $this = $(this);
                 if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded")) {
                     $this.trigger("expand");
@@ -424,21 +424,21 @@
         },
         /**
          * Expand all nodes
-         * 
+         *
          * @returns {Node}
          */
-        expandAll: function() {
+        expandAll: function () {
             var $this = $(this);
             $this.treegrid('getRootNodes').treegrid('expandRecursive');
             return $this;
         },
         /**
          * Expand current node and all child nodes begin from current
-         * 
+         *
          * @returns {Node}
          */
-        expandRecursive: function() {
-            return $(this).each(function() {
+        expandRecursive: function () {
+            return $(this).each(function () {
                 var $this = $(this);
                 $this.treegrid('expand');
                 if (!$this.treegrid('isLeaf')) {
@@ -448,11 +448,11 @@
         },
         /**
          * Collapse node
-         * 
+         *
          * @returns {Node}
          */
-        collapse: function() {
-            return $(this).each(function() {
+        collapse: function () {
+            return $(this).each(function () {
                 var $this = $(this);
                 if (!$this.treegrid('isLeaf') && !$this.treegrid("isCollapsed")) {
                     $this.trigger("collapse");
@@ -462,21 +462,21 @@
         },
         /**
          * Collapse all nodes
-         * 
+         *
          * @returns {Node}
          */
-        collapseAll: function() {
+        collapseAll: function () {
             var $this = $(this);
             $this.treegrid('getRootNodes').treegrid('collapseRecursive');
             return $this;
         },
         /**
          * Collapse current node and all child nodes begin from current
-         * 
+         *
          * @returns {Node}
          */
-        collapseRecursive: function() {
-            return $(this).each(function() {
+        collapseRecursive: function () {
+            return $(this).each(function () {
                 var $this = $(this);
                 $this.treegrid('collapse');
                 if (!$this.treegrid('isLeaf')) {
@@ -486,10 +486,10 @@
         },
         /**
          * Expand if collapsed, Collapse if expanded
-         * 
+         *
          * @returns {Node}
          */
-        toggle: function() {
+        toggle: function () {
             var $this = $(this);
             if ($this.treegrid('isExpanded')) {
                 $this.treegrid('collapse');
@@ -500,11 +500,11 @@
         },
         /**
          * Rendering node
-         * 
+         *
          * @returns {Node}
          */
-        render: function() {
-            return $(this).each(function() {
+        render: function () {
+            return $(this).each(function () {
                 var $this = $(this);
 
                 if ($this.treegrid('isOneOfParentsCollapsed')) {
@@ -520,11 +520,11 @@
         },
         /**
          * Rendering expander depends on node state
-         * 
+         *
          * @returns {Node}
          */
-        renderExpander: function() {
-            return $(this).each(function() {
+        renderExpander: function () {
+            return $(this).each(function () {
                 var $this = $(this);
                 var expander = $this.treegrid('getSetting', 'getExpander').apply(this);
                 if (expander) {
@@ -543,9 +543,9 @@
             });
         }
     };
-    $.fn.treegrid = function(method) {
+    $.fn.treegrid = function (method) {
         if (methods[method]) {
-            return methods[ method ].apply(this, Array.prototype.slice.call(arguments, 1));
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
             return methods.initTree.apply(this, arguments);
         } else {
@@ -565,36 +565,36 @@
         expanderExpandedClass: 'treegrid-expander-expanded',
         expanderCollapsedClass: 'treegrid-expander-collapsed',
         treeColumn: 0,
-        getExpander: function() {
+        getExpander: function () {
             return $(this).find('.treegrid-expander');
         },
-        getNodeId: function() {
+        getNodeId: function () {
             var template = /treegrid-([A-Za-z0-9_-]+)/;
             if (template.test($(this).attr('class'))) {
                 return template.exec($(this).attr('class'))[1];
             }
             return null;
         },
-        getParentNodeId: function() {
+        getParentNodeId: function () {
             var template = /treegrid-parent-([A-Za-z0-9_-]+)/;
             if (template.test($(this).attr('class'))) {
                 return template.exec($(this).attr('class'))[1];
             }
             return null;
         },
-        getNodeById: function(id, treegridContainer) {
+        getNodeById: function (id, treegridContainer) {
             var templateClass = "treegrid-" + id;
             return treegridContainer.find('tr.' + templateClass);
         },
-        getChildNodes: function(id, treegridContainer) {
+        getChildNodes: function (id, treegridContainer) {
             var templateClass = "treegrid-parent-" + id;
             return treegridContainer.find('tr.' + templateClass);
         },
-        getTreeGridContainer: function() {
+        getTreeGridContainer: function () {
             return $(this).closest('table');
         },
-        getRootNodes: function(treegridContainer) {
-            var result = $.grep(treegridContainer.find('tr'), function(element) {
+        getRootNodes: function (treegridContainer) {
+            var result = $.grep(treegridContainer.find('tr'), function (element) {
                 var classNames = $(element).attr('class');
                 var templateClass = /treegrid-([A-Za-z0-9_-]+)/;
                 var templateParentClass = /treegrid-parent-([A-Za-z0-9_-]+)/;
@@ -602,8 +602,8 @@
             });
             return $(result);
         },
-        getAllNodes: function(treegridContainer) {
-            var result = $.grep(treegridContainer.find('tr'), function(element) {
+        getAllNodes: function (treegridContainer) {
+            var result = $.grep(treegridContainer.find('tr'), function (element) {
                 var classNames = $(element).attr('class');
                 var templateClass = /treegrid-([A-Za-z0-9_-]+)/;
                 return templateClass.test(classNames);

@@ -27,7 +27,7 @@
         init: function () {
             var tableId = this.bstableId;
             this.btInstance =
-                $('#'+tableId).bootstrapTreeTable({
+                $('#' + tableId).bootstrapTreeTable({
                     id: this.id,// 选取记录返回的值
                     code: this.code,// 用于设置父子关系
                     parentCode: this.parentCode,// 用于设置父子关系
@@ -79,13 +79,13 @@
          * 设置是否默认全部展开
          */
         setExpandAll: function (expandAll) {
-        	this.expandAll = expandAll;
+            this.expandAll = expandAll;
         },
         /**
          * 设置表格高度
          */
         setHeight: function (height) {
-        	this.height = height;
+            this.height = height;
         },
         /**
          * 设置ajax post请求时候附带的参数
@@ -129,22 +129,22 @@
                 this.btInstance.bootstrapTreeTable('refresh');
             }
         },
-        
+
         /**
          * 设置高度
          */
-        resetHeight: function(parms) {
-        	if (typeof parms != "undefined") {
+        resetHeight: function (parms) {
+            if (typeof parms != "undefined") {
                 this.btInstance.bootstrapTreeTable('resetHeight', parms.height);// 为了兼容bootstrap-table的写法
             } else {
                 this.btInstance.bootstrapTreeTable('resetHeight');
             }
         },
-        
+
         /**
          * 获取选中行
          */
-        getSelectedRow: function() {
+        getSelectedRow: function () {
             return this.btInstance.bootstrapTreeTable('getSelections');
         }
     };
